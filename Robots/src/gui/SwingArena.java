@@ -53,8 +53,8 @@ public class SwingArena extends JPanel
      */
     public void setRobotPosition(double x, double y)
     {
-        robotX = x;
-        robotY = y;
+       // robotX = x;
+        //robotY = y;
         repaint();
     }
     
