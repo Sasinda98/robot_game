@@ -8,8 +8,12 @@ package main;
 
 import gui.ExampleSwingApp;
 import static gui.ExampleSwingApp.state;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import robotai.GreyAI;
 
 import robotsgame.RobotInfo;
+import utils.Line;
 
 /**
  *
@@ -99,12 +103,22 @@ public class RobotControl {
      * @param targetY
      * @return 
      */
-    public boolean fire(int targetX, int targetY){
+    public boolean fire(int targetX, int targetY) throws InterruptedException{
          boolean isXDiffOK = (Math.abs(robotToControl.getX() - targetX) <= 2);
          boolean isYDiffOK = (Math.abs(robotToControl.getY() - targetY) <= 2);              
         
         if((robotToControl.getHealth() > 0) && isXDiffOK && isYDiffOK){
-               
+            
+            Thread.sleep(500);  //delay prior to firing
+            
+            //FIRE THE LASER!
+                //Code to draw line
+            Line l = new Line(robotToControl.getX(), robotToControl.getY(), targetX, targetY);
+            state.addLine(l);
+            
+            Thread.sleep(250);  //line delay, show for 250ms
+           
+            state.removeLine(l);  
             return true;
         }
         return false;

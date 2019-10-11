@@ -49,28 +49,16 @@ public class GreyAI extends Thread implements RobotAI {
                     int prevX = temp.getX();
                     int prevY = temp.getY();
 
-                    boolean isFireLegal = rc.fire(prevX, prevY); //this func doesn't say whether the laser fire is an actual hit. and hence the code below.
+                    boolean isFireLegal = false;
+                    try {
+                        isFireLegal = rc.fire(prevX, prevY); //this func doesn't say whether the laser fire is an actual hit. and hence the code below.
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
+                        break;
+                    }
 
                     if(isFireLegal){    //commit to firing
-                        try {
-                            Thread.sleep(500);  //delay prior to firing
-                            
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
-                            break;
-                        }
-                        
-                        //FIRE THE LASER!
-                            //Code to draw line
-                        Line l = new Line(myRobot.getX(), myRobot.getY(), temp.getX(), temp.getY());
-                        state.addLine(l);
-                        try {
-                            Thread.sleep(250);  //line delay, show for 250ms
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
-                            break;
-                        }
-                        state.removeLine(l);                        
+                                              
                         boolean isAHit = (temp.getX() - prevX == 0) && (temp.getY() - prevY == 0);
                         
                         if(isAHit){
