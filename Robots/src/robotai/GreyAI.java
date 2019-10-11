@@ -64,7 +64,8 @@ public class GreyAI extends Thread implements RobotAI {
                         if(isAHit){
                             temp.setHealth( ( ( temp.getHealth() - 35.0 ) < 0 ) ? 0 : ( temp.getHealth() - 35 ) ); //Prevent negative values for health.
                                 //Code to notify about the hit
-                            state.addHit(myRobot, temp);
+                            //state.addHit(myRobot, temp);
+                            rc.recordHit(temp);
                             System.out.println("LASER HIT");
                                 
                         }else{

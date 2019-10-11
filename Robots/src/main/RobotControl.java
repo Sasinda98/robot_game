@@ -134,4 +134,9 @@ public class RobotControl {
 
         return false;
     }
+    
+    public void recordHit(RobotInfo victim){
+       // RobotInfo attacker = robotToControl;
+        state.addHit(robotToControl, victim);
+    }
 }

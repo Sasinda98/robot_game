@@ -100,7 +100,8 @@ public class ExampleSwingApp
             while(true){
         
                 try {
-                 
+                    //state.renderSync();
+                    
                     arena.repaint();
                   
                     Thread.sleep(250);

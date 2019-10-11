@@ -4,6 +4,7 @@ import static gui.ExampleSwingApp.state;
 import java.awt.*;
 import javax.swing.*;
 import robotsgame.RobotInfo;
+import utils.Hit;
 import utils.Line;
 
 /**
@@ -12,8 +13,15 @@ import utils.Line;
 public class SwingArena extends JPanel
 {
     // Represents the image to draw. You can modify this to introduce multiple images.
-    private static final String IMAGE_FILE = "./assets/1554047213.png";
-    private ImageIcon robot1;
+    private static final String IMAGE_NORMAL = "./assets/1554047213.png";
+    private static final String IMAGE_ATTACKER = "./assets/attacker.png";
+    private static final String IMAGE_VICTIM = "./assets/victim.png";
+    
+    private ImageIcon robot_normal_img;
+    private ImageIcon robot_attacker_img;
+    private ImageIcon robot_victim_img;
+    
+    
 
     // The following values are arbitrary, and you may need to modify them according to the 
     // requirements of your application.
@@ -32,7 +40,9 @@ public class SwingArena extends JPanel
     {
         // Here's how you get an Image object from an image file (which you provide in the 
         // 'resources/' directory.
-        robot1 = new ImageIcon(getClass().getClassLoader().getResource(IMAGE_FILE));
+        robot_normal_img = new ImageIcon(getClass().getClassLoader().getResource(IMAGE_NORMAL));
+        robot_attacker_img = new ImageIcon(getClass().getClassLoader().getResource(IMAGE_ATTACKER));
+        robot_victim_img = new ImageIcon(getClass().getClassLoader().getResource(IMAGE_VICTIM));
         // You will get an exception here if the specified image file cannot be found.
     }
     
@@ -107,13 +117,37 @@ public class SwingArena extends JPanel
         drawImage(gfx, robot1, robotX, robotY);
         drawLabel(gfx, "Robot Name (100%)", robotX, robotY);
         drawLine(gfx, robotX, robotY, robotX + 1.0, robotY - 2.0); */
-       
+
+     
+       boolean isAttacker = false, isVictim = false;
+       RobotInfo attacker = null;
+       RobotInfo victim = null;
        for(RobotInfo robot: state.getRobotArray()){
-           drawRobot(gfx, robot1, robot.getName(), robot.getHealth(),robot.getX(), robot.getY());
            
+          
+            drawRobot(gfx, robot_normal_img, robot.getName(), robot.getHealth(), robot.getX(), robot.getY());
+            //Hit hit = state.removeHit();
+            
+            /*if(hit != null){
+                attacker = hit.getAttacker();
+                victim = hit.getVictim();
+                drawRobot(gfx, robot_attacker_img, hit.getAttacker().getName(), hit.getAttacker().getHealth(),hit.getAttacker().getX(), hit.getAttacker().getY());
+                drawRobot(gfx, robot_victim_img, hit.getVictim().getName(), hit.getVictim().getHealth(),hit.getVictim().getX(), hit.getVictim().getY());
+            }
+            else{
+                if(attacker !=null && victim !=null){
+                    drawRobot(gfx, robot_normal_img, attacker.getName(), attacker.getHealth(), attacker.getX(), attacker.getY());
+                    drawRobot(gfx, robot_normal_img, victim.getName(), victim.getHealth(), victim.getX(), victim.getY());
+                }
+                drawRobot(gfx, robot_normal_img, robot.getName(), robot.getHealth(),robot.getX(), robot.getY());
+            }
+            */
+            
             for(Line l : state.getLineQueue()){
                 drawLine(gfx, l.getStartX(), l.startY, l.endX, l.endY);
             }
+            
+           // System.out.println("Size of hitqueue = " + state.getHitQueue().size());
        }
        
     }
@@ -136,8 +170,8 @@ public class SwingArena extends JPanel
         // We also need to know how "big" to make the image. The image file has a natural width 
         // and height, but that's not necessarily the size we want to draw it on the screen. We 
         // do, however, want to preserve its aspect ratio.
-        double fullSizePixelWidth = (double) robot1.getIconWidth();
-        double fullSizePixelHeight = (double) robot1.getIconHeight();
+        double fullSizePixelWidth = (double) robot_normal_img.getIconWidth();
+        double fullSizePixelHeight = (double) robot_normal_img.getIconHeight();
         
         double displayedPixelWidth, displayedPixelHeight;
         if(fullSizePixelWidth > fullSizePixelHeight)

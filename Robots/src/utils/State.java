@@ -49,18 +49,18 @@ public class State {
     public void addLine(Line l){
         boolean isAdded = linesQueue.offer(l); //returns status of add, use if req'd.
         if(isAdded){
-          //  addSyncPayload();
+           addSyncPayload();
         }
     }
     
     public Line removeLine(){
-          // addSyncPayload();
+        addSyncPayload();
         return linesQueue.poll(); //returns null if empty.
     }
     
-    public void removeLine(Line l){
-          // addSyncPayload();
-         linesQueue.remove(l); //returns null if empty.
+    public boolean removeLine(Line l){
+         addSyncPayload();
+         return linesQueue.remove(l); 
     }
    
     public LinkedBlockingQueue<Line> getLineQueue(){
@@ -71,13 +71,23 @@ public class State {
     public void addHit(RobotInfo attacker, RobotInfo victim){
         boolean isAdded = hitQueue.offer(new Hit(attacker, victim)); //returns status of add, use if req'd.
         if(isAdded){
-              // addSyncPayload();
+            addSyncPayload();
         }
     }
     
+    public boolean removeHit(Hit h){
+        addSyncPayload();
+        return hitQueue.remove(h);
+    }
+    
     public Hit removeHit(){
+        addSyncPayload();
+        return hitQueue.poll();
+    }
+    
+    public LinkedBlockingQueue<Hit> getHitQueue(){
      //   addSyncPayload();
-        return hitQueue.poll(); //returns null if empty.
+        return hitQueue; //returns null if empty.
     }
     
     //GUI SYNC
