@@ -2,6 +2,8 @@ package gui;
 
 import static gui.ExampleSwingApp.state;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import robotsgame.RobotInfo;
 import utils.Hit;
@@ -118,39 +120,34 @@ public class SwingArena extends JPanel
         drawLabel(gfx, "Robot Name (100%)", robotX, robotY);
         drawLine(gfx, robotX, robotY, robotX + 1.0, robotY - 2.0); */
 
-     
-       boolean isAttacker = false, isVictim = false;
-       RobotInfo attacker = null;
-       RobotInfo victim = null;
+       Hit hit = null;
+   
        for(RobotInfo robot: state.getRobotArray()){
            
-          
             drawRobot(gfx, robot_normal_img, robot.getName(), robot.getHealth(), robot.getX(), robot.getY());
-            //Hit hit = state.removeHit();
             
-            /*if(hit != null){
-                attacker = hit.getAttacker();
-                victim = hit.getVictim();
+            hit = state.getHitQueue().peek();
+            
+            if(hit != null){
                 drawRobot(gfx, robot_attacker_img, hit.getAttacker().getName(), hit.getAttacker().getHealth(),hit.getAttacker().getX(), hit.getAttacker().getY());
                 drawRobot(gfx, robot_victim_img, hit.getVictim().getName(), hit.getVictim().getHealth(),hit.getVictim().getX(), hit.getVictim().getY());
+                System.out.println("Attacker = " + hit.getAttacker().getName() + " and victim = " + hit.getVictim().getName() + " painting...");
+                state.removeHit();
             }
             else{
-                if(attacker !=null && victim !=null){
-                    drawRobot(gfx, robot_normal_img, attacker.getName(), attacker.getHealth(), attacker.getX(), attacker.getY());
-                    drawRobot(gfx, robot_normal_img, victim.getName(), victim.getHealth(), victim.getX(), victim.getY());
-                }
+               
                 drawRobot(gfx, robot_normal_img, robot.getName(), robot.getHealth(),robot.getX(), robot.getY());
             }
-            */
+            
             
             for(Line l : state.getLineQueue()){
                 drawLine(gfx, l.getStartX(), l.startY, l.endX, l.endY);
             }
             
-           // System.out.println("Size of hitqueue = " + state.getHitQueue().size());
        }
        
-    }
+       
+    } 
     
     
     /** 

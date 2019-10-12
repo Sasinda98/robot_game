@@ -68,11 +68,11 @@ public class ExampleSwingApp
     
     public static void function(SwingArena arena){
         state = new State(5);
-        state.addRobot(new RobotInfo("Robot-1", 1, 1, 1000.0));
-        state.addRobot(new RobotInfo("Robot-2", 3, 3, 1000.0));
-        state.addRobot(new RobotInfo("Robot-3", 2, 2, 1000.0));
-        state.addRobot(new RobotInfo("Robot-4", 6, 6, 1000.0));
-        state.addRobot(new RobotInfo("Robot-5", 4, 4, 1000.0));
+        state.addRobot(new RobotInfo("Robot-1", 1, 1, 100.0));
+        state.addRobot(new RobotInfo("Robot-2", 3, 3, 100.0));
+        state.addRobot(new RobotInfo("Robot-3", 2, 2, 100.0));
+        state.addRobot(new RobotInfo("Robot-4", 6, 6, 100.0));
+        state.addRobot(new RobotInfo("Robot-5", 4, 4, 100.0));
         
         RobotControl rc1 = new RobotControl(state.getRobot(0));
         GreyAI greyAI1 = new GreyAI();
@@ -100,12 +100,11 @@ public class ExampleSwingApp
             while(true){
         
                 try {
-                    //state.renderSync();
-                    
-                    arena.repaint();
-                  
+                   
                     Thread.sleep(250);
-                    
+
+                    arena.repaint();
+  
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.SEVERE, null, ex);
                 }

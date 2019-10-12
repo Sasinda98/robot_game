@@ -48,7 +48,7 @@ public class RobotControl {
         if(newY >= 0 && !isAlreadyOccupied(robotToControl.getX(), newY) && isAlive){
             robotToControl.setY(newY);
             state.addSyncPayload();
-            System.out.println("Moving North, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
+            //System.out.println("Moving North, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
             return false;
@@ -62,7 +62,7 @@ public class RobotControl {
         if(newY < gridY && !isAlreadyOccupied(robotToControl.getX(), newY) && isAlive){
             robotToControl.setY(newY);
             state.addSyncPayload();
-            System.out.println("Moving South, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
+            //System.out.println("Moving South, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
             return false;
@@ -76,7 +76,7 @@ public class RobotControl {
         if(newX >= 0 && !isAlreadyOccupied(newX, robotToControl.getY()) && isAlive){
             robotToControl.setX(newX);
             state.addSyncPayload();
-            System.out.println("Moving West, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
+            //System.out.println("Moving West, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
             return false;
@@ -90,7 +90,7 @@ public class RobotControl {
         if(newX < gridX && !isAlreadyOccupied(newX, robotToControl.getY()) && isAlive){
             robotToControl.setX(newX);
             state.addSyncPayload();
-            System.out.println("Moving East, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
+            //System.out.println("Moving East, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
             return false;

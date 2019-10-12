@@ -17,7 +17,7 @@ import utils.Line;
  *
  * @author sasinda
  */
-public class GreyAI extends Thread implements RobotAI {
+public class NotificationAI extends Thread implements RobotAI {
     
     private RobotControl rc;
     
@@ -53,7 +53,7 @@ public class GreyAI extends Thread implements RobotAI {
                     try {
                         isFireLegal = rc.fire(prevX, prevY); //this func doesn't say whether the laser fire is an actual hit. and hence the code below.
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(NotificationAI.class.getName()).log(Level.SEVERE, null, ex);
                         break;
                     }
 
@@ -63,7 +63,9 @@ public class GreyAI extends Thread implements RobotAI {
                         
                         if(isAHit){
                             temp.setHealth( ( ( temp.getHealth() - 35.0 ) < 0 ) ? 0 : ( temp.getHealth() - 35 ) ); //Prevent negative values for health.
-                            
+                                //Code to notify about the hit
+                            //state.addHit(myRobot, temp);
+                            rc.recordHit(temp);
                             System.out.println("LASER HIT");
                                 
                         }else{
@@ -102,7 +104,7 @@ public class GreyAI extends Thread implements RobotAI {
             try {
                 Thread.sleep(1000); //1sec sleep
             } catch (InterruptedException ex) {
-                Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NotificationAI.class.getName()).log(Level.SEVERE, null, ex);
                 break;
             }
 
