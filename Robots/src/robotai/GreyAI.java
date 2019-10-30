@@ -1,8 +1,10 @@
 package robotai;
 import static gui.ExampleSwingApp.logger;
+import static gui.ExampleSwingApp.print;
 import static gui.ExampleSwingApp.state;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 import main.RobotAI;
 import main.RobotControl;
 import static robotsgame.AI.Constants.*;
@@ -38,9 +40,11 @@ public class GreyAI extends Thread implements RobotAI {
      
         while(true){
             RobotInfo myRobot = rc.getRobot();
-            if(this.isInterrupted()){
+            
+            if(this.isInterrupted() || myRobot.getHealth() <= 0){
                 break;
             }
+            
             for(RobotInfo temp:rc.getRobots()){
 
                 if((!myRobot.getName().equals(temp.getName()))
@@ -56,26 +60,42 @@ public class GreyAI extends Thread implements RobotAI {
                     try {
                         isFireLegal = rc.fire(prevX, prevY); //this func doesn't say whether the laser fire is an actual hit. and hence the code below.
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(GreyAI.class.getName()).log(Level.FINE, null, ex);
                         break;
                     }
 
                     if(isFireLegal){    //commit to firing
-                        logger.append("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");          
+                       // logger.append("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");
+                       
+                       print("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");
                         boolean isAHit = (temp.getX() - prevX == 0) && (temp.getY() - prevY == 0);
                         
                         if(isAHit){
                             temp.setHealth( ( ( temp.getHealth() - 35.0 ) < 0 ) ? 0 : ( temp.getHealth() - 35 ) ); //Prevent negative values for health.
                             
                             System.out.println("LASER HIT");
-                            logger.append("Robot: " + temp.getName() + " INCURRS DAMAGE." + "\n");   
+                          
+                          //  print("Robot: " + temp.getName() + " INCURRS DAMAGE." + "\n");
+                            SwingUtilities.invokeLater(()->{
+                                logger.append("Robot: " + temp.getName() + " INCURRS DAMAGE " + "From: " + myRobot.getName() + "\n"); 
+                            });
                             
-                            if(temp.getHealth() <= 0)
-                                 logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
+                            if(temp.getHealth() <= 0){
+                                 //logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
+                                 //print("Robot: " + temp.getName() + " DIED." + "\n");
+                                 SwingUtilities.invokeLater(()->{
+                                     logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
+                                 });
+                            }
+                                
                                 
                         }else{
                             System.out.println("LASER MISSED");
-                             logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");    
+                            //logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");   
+                           // print("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");
+                           SwingUtilities.invokeLater(()->{
+                                     logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");  
+                                 });
                         }
                         
                         break;
@@ -106,14 +126,10 @@ public class GreyAI extends Thread implements RobotAI {
                     break;
             }
 
-            if(rc.getRobot().getHealth() <= 0){
-                break;
-            }
-
             try {
                 Thread.sleep(1000); //1sec sleep
             } catch (InterruptedException ex) {
-                Logger.getLogger(GreyAI.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GreyAI.class.getName()).log(Level.FINE, null, ex);
                 break;
             }
 

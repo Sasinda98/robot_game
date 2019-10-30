@@ -13,6 +13,14 @@ import utils.State;
 public class ExampleSwingApp 
 {
     public static JTextArea logger; //needs to be accessed outside this class.
+    private static Object loggerMutex = new Object();
+    
+    public static void print(String string){
+        synchronized(loggerMutex){
+            if(logger!=null)
+                logger.append(string);
+        }
+    }
     
     public static void main(String[] args) 
     {
@@ -201,9 +209,11 @@ public class ExampleSwingApp
                 try {
                    
                     Thread.sleep(250);
-
-                    arena.repaint();
                     
+                    SwingUtilities.invokeLater(()->{
+                        arena.repaint();
+                    });
+             
                     int deadRobots=0;
                     for(int i =0; i < state.getRobotArray().length; i++){
                         if(state.getRobotArray()[i].getHealth() == 0){
@@ -213,13 +223,17 @@ public class ExampleSwingApp
                     
                     if(state.getRobotArray().length - 1 == deadRobots){
                         System.out.println("Ending, last robot standing........");
-                        logger.append("Ending, Last Robot Standing. GAME OVER\n");
+                       
+                        SwingUtilities.invokeLater(()->{
+                            logger.append("Ending, Last Robot Standing. GAME OVER\n");
+                        });
+                        
                         break;
                     }
               
   
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.FINE, null, ex);
                     break;
                 }
 
