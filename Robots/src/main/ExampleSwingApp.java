@@ -1,5 +1,6 @@
 package main;
 
+import dependencies.LogTextArea;
 import main.SwingArena;
 import java.awt.*;
 import java.awt.event.*;
@@ -41,8 +42,7 @@ public class ExampleSwingApp
             logger = new JTextArea();
             JScrollPane loggerArea = new JScrollPane(logger);
             loggerArea.setBorder(BorderFactory.createEtchedBorder());
-            logger.append("Hello\n");
-            logger.append("World\n");
+            LogTextArea.initializeLogTextArea(logger);
             
             
             /***
@@ -101,7 +101,7 @@ public class ExampleSwingApp
             
             btn1.addActionListener((event) ->
             {
-                logger.append("Start Pressed\n");
+                LogTextArea.getLogTextArea().append("Start Pressed\n");
        
                 /***
                  * Title: Referred to the link below to solve the problem of IllegalThreadStateException
@@ -118,13 +118,13 @@ public class ExampleSwingApp
                     greyAI5.runAI(rc5);
                  
                 }else{
-                    logger.append("Gui Thread not new\n");
+                    LogTextArea.getLogTextArea().append("Gui Thread not new\n");
                 }
                 
             });
             
             btn2.addActionListener((ev)->{
-                logger.append("Stop Pressed\n");
+                LogTextArea.getLogTextArea().append("Stop Pressed\n");
                 guiThread.interrupt();
                 greyAI1.interrupt();
                 greyAI2.interrupt();
@@ -187,7 +187,7 @@ public class ExampleSwingApp
                     
                     if(state.getRobotArray().length - 1 == deadRobots){
                         System.out.println("Ending, last robot standing........");
-                        logger.append("Ending, Last Robot Standing. GAME OVER\n");
+                        LogTextArea.getLogTextArea().append("Ending, Last Robot Standing. GAME OVER\n");
                         break;
                     }
               
@@ -229,7 +229,7 @@ public class ExampleSwingApp
                         System.out.println("Ending, last robot standing........");
                        
                         SwingUtilities.invokeLater(()->{
-                            logger.append("Ending, Last Robot Standing. GAME OVER\n");
+                            LogTextArea.getLogTextArea().append("Ending, Last Robot Standing. GAME OVER\n");
                         });
                         
                         break;

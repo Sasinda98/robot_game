@@ -1,4 +1,5 @@
 package robotai;
+import dependencies.LogTextArea;
 import static main.ExampleSwingApp.logger;
 import static main.ExampleSwingApp.print;
 import java.util.logging.Level;
@@ -75,14 +76,14 @@ public class GreyAI extends Thread implements RobotAI {
                           
                           //  print("Robot: " + temp.getName() + " INCURRS DAMAGE." + "\n");
                             SwingUtilities.invokeLater(()->{
-                                logger.append("Robot: " + temp.getName() + " INCURRS DAMAGE " + "From: " + myRobot.getName() + "\n"); 
+                                LogTextArea.getLogTextArea().append("Robot: " + temp.getName() + " INCURRS DAMAGE " + "From: " + myRobot.getName() + "\n"); 
                             });
                             
                             if(temp.getHealth() <= 0){
                                  //logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
                                  //print("Robot: " + temp.getName() + " DIED." + "\n");
                                  SwingUtilities.invokeLater(()->{
-                                     logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
+                                     LogTextArea.getLogTextArea().append("Robot: " + temp.getName() + " DIED." + "\n");  
                                  });
                             }
                                 
@@ -92,7 +93,7 @@ public class GreyAI extends Thread implements RobotAI {
                             //logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");   
                            // print("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");
                            SwingUtilities.invokeLater(()->{
-                                     logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");  
+                                     LogTextArea.getLogTextArea().append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");  
                                  });
                         }
                         
