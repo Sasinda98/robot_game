@@ -12,6 +12,8 @@ import utils.State;
 
 public class ExampleSwingApp 
 {
+    public static JTextArea logger; //needs to be accessed outside this class.
+    
     public static void main(String[] args) 
     {
         // Note: SwingUtilities.invokeLater() is equivalent to JavaFX's Platform.runLater().
@@ -31,7 +33,7 @@ public class ExampleSwingApp
                 System.out.println("Button 1 pressed");
             });
             
-            JTextArea logger = new JTextArea();
+            logger = new JTextArea();
             JScrollPane loggerArea = new JScrollPane(logger);
             loggerArea.setBorder(BorderFactory.createEtchedBorder());
             logger.append("Hello\n");
@@ -104,6 +106,20 @@ public class ExampleSwingApp
                     Thread.sleep(250);
 
                     arena.repaint();
+                    
+                    int deadRobots=0;
+                    for(int i =0; i < state.getRobotArray().length; i++){
+                        if(state.getRobotArray()[i].getHealth() == 0){
+                            deadRobots++;
+                        }
+                    }
+                    
+                    if(state.getRobotArray().length - 1 == deadRobots){
+                        System.out.println("Ending, last robot standing........");
+                        logger.append("Ending, Last Robot Standing...");
+                        break;
+                    }
+              
   
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.SEVERE, null, ex);
