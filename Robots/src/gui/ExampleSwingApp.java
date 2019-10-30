@@ -57,15 +57,69 @@ public class ExampleSwingApp
             splitPane.setDividerLocation(0.75);
             
            // function(arena);
+           
+            state = new State(5);
+            state.addRobot(new RobotInfo("Robot-1", 1, 1, 100.0));
+            state.addRobot(new RobotInfo("Robot-2", 3, 3, 100.0));
+            state.addRobot(new RobotInfo("Robot-3", 2, 2, 100.0));
+            state.addRobot(new RobotInfo("Robot-4", 6, 6, 100.0));
+            state.addRobot(new RobotInfo("Robot-5", 4, 4, 100.0));
+
+            RobotControl rc1 = new RobotControl(state.getRobot(0));
+            GreyAI greyAI1 = new GreyAI();
+            //greyAI1.runAI(rc1);
+
+            RobotControl rc2 = new RobotControl(state.getRobot(1));
+            GreyAI greyAI2 = new GreyAI();
+           // greyAI2.runAI(rc2);
+
+            RobotControl rc3 = new RobotControl(state.getRobot(2));
+            GreyAI greyAI3 = new GreyAI();
+          //  greyAI3.runAI(rc3);
+
+            RobotControl rc4 = new RobotControl(state.getRobot(3));
+            GreyAI greyAI4 = new GreyAI();
+            //greyAI4.runAI(rc4);
+
+            RobotControl rc5 = new RobotControl(state.getRobot(4));
+            GreyAI greyAI5 = new GreyAI();
+            //greyAI5.runAI(rc5);
+            
+            Thread guiThread = guiThreadInit(arena);
             
             btn1.addActionListener((event) ->
             {
-                logger.append("Start Pressed");
+                logger.append("Start Pressed\n");
+       
+                /***
+                 * Title: Referred to the link below to solve the problem of IllegalThreadStateException
+                 * Link: https://stackoverflow.com/questions/7315941/java-lang-illegalthreadstateexception
+                 * Author: Toby
+                 * Accessed: 30th October 2019
+                 */
+                if(guiThread.getState() == Thread.State.NEW){ //Checking the guiThread is enough
+                    guiThread.start();
+                    greyAI1.runAI(rc1);
+                    greyAI2.runAI(rc2);
+                    greyAI3.runAI(rc3);
+                    greyAI4.runAI(rc4);
+                    greyAI5.runAI(rc5);
+                 
+                }else{
+                    logger.append("Gui Thread not new\n");
+                }
                 
             });
             
             btn2.addActionListener((ev)->{
-                logger.append("Stop Pressed");
+                logger.append("Stop Pressed\n");
+                guiThread.interrupt();
+                greyAI1.interrupt();
+                greyAI2.interrupt();
+                greyAI3.interrupt();
+                greyAI4.interrupt();
+                greyAI5.interrupt();
+                
             });
         });
         
@@ -137,5 +191,42 @@ public class ExampleSwingApp
         Thread guiUpdate = new Thread(gui, "GUI UPDATER THREAD");
         guiUpdate.start();
        
+    }
+    
+    public static Thread guiThreadInit(SwingArena arena){
+              Runnable gui = () -> {
+            State prev = null;
+            while(true){
+        
+                try {
+                   
+                    Thread.sleep(250);
+
+                    arena.repaint();
+                    
+                    int deadRobots=0;
+                    for(int i =0; i < state.getRobotArray().length; i++){
+                        if(state.getRobotArray()[i].getHealth() == 0){
+                            deadRobots++;
+                        }
+                    }
+                    
+                    if(state.getRobotArray().length - 1 == deadRobots){
+                        System.out.println("Ending, last robot standing........");
+                        logger.append("Ending, Last Robot Standing. GAME OVER\n");
+                        break;
+                    }
+              
+  
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.SEVERE, null, ex);
+                    break;
+                }
+
+            }
+        };
+        
+        Thread guiUpdate = new Thread(gui, "GUI UPDATER THREAD");
+        return guiUpdate;
     }
 }

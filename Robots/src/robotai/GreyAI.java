@@ -38,7 +38,9 @@ public class GreyAI extends Thread implements RobotAI {
      
         while(true){
             RobotInfo myRobot = rc.getRobot();
-
+            if(this.isInterrupted()){
+                break;
+            }
             for(RobotInfo temp:rc.getRobots()){
 
                 if((!myRobot.getName().equals(temp.getName()))
