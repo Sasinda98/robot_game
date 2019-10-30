@@ -1,7 +1,6 @@
 package robotai;
 import dependencies.LogTextArea;
-import static main.ExampleSwingApp.logger;
-import static main.ExampleSwingApp.print;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
@@ -66,7 +65,7 @@ public class GreyAI extends Thread implements RobotAI {
                     if(isFireLegal){    //commit to firing
                        // logger.append("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");
                        
-                       print("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");
+                       LogTextArea.getLogTextArea().append("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");
                         boolean isAHit = (temp.getX() - prevX == 0) && (temp.getY() - prevY == 0);
                         
                         if(isAHit){
