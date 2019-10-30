@@ -5,7 +5,7 @@
  */
 package utils;
 
-import robotsgame.RobotInfo;
+import main.RobotInfo;
 
 
 /**

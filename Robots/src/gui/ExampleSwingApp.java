@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import main.RobotControl;
 import robotai.GreyAI;
-import robotsgame.RobotInfo;
+import main.RobotInfo;
 import utils.State;
 
 public class ExampleSwingApp 

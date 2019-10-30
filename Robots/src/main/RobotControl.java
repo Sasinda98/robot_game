@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import robotai.GreyAI;
 
-import robotsgame.RobotInfo;
 import utils.Line;
 
 /**

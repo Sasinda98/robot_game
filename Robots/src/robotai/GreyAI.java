@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 import main.RobotAI;
 import main.RobotControl;
 import static robotsgame.AI.Constants.*;
-import robotsgame.RobotInfo;
+import main.RobotInfo;
 import utils.Line;
 
 /*

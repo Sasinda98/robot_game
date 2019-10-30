@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import robotsgame.RobotInfo;
+import main.RobotInfo;
 import utils.Hit;
 import utils.Line;
 

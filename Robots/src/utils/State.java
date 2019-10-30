@@ -9,7 +9,7 @@ import java.awt.List;
 import java.util.Iterator;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
-import robotsgame.RobotInfo;
+import main.RobotInfo;
 
 /**
  *
