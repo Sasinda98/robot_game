@@ -9,6 +9,12 @@ package main;
  *
  * @author sasinda
  */
-public interface RobotAI {
-    public void runAI(RobotControl rc);
+public class Constants {
+    
+    public static final int NORTH = 0;
+    public static final int SOUTH = 1;
+    public static final int EAST = 2;
+    public static final int WEST = 3;
+    
+    
 }

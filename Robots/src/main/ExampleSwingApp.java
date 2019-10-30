@@ -1,19 +1,21 @@
-package gui;
+package main;
 
+import main.SwingArena;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import main.RobotControl;
+import dependencies.RobotControl;
 import robotai.GreyAI;
-import main.RobotInfo;
-import utils.State;
+import dependencies.RobotInfo;
+import main.State;
 
 public class ExampleSwingApp 
 {
     public static JTextArea logger; //needs to be accessed outside this class.
     private static Object loggerMutex = new Object();
+    private static State state; 
     
     public static void print(String string){
         synchronized(loggerMutex){
@@ -66,7 +68,8 @@ public class ExampleSwingApp
             
            // function(arena);
            
-            state = new State(5);
+            state = State.getInstance();
+            state.setRobotArraySize(5);
             state.addRobot(new RobotInfo("Robot-1", 1, 1, 100.0));
             state.addRobot(new RobotInfo("Robot-2", 3, 3, 100.0));
             state.addRobot(new RobotInfo("Robot-3", 2, 2, 100.0));
@@ -133,10 +136,10 @@ public class ExampleSwingApp
         
     }
     
-    public static State state;
     
     public static void function(SwingArena arena){
-        state = new State(5);
+        state = State.getInstance();
+        state.setRobotArraySize(5);
         state.addRobot(new RobotInfo("Robot-1", 1, 1, 100.0));
         state.addRobot(new RobotInfo("Robot-2", 3, 3, 100.0));
         state.addRobot(new RobotInfo("Robot-3", 2, 2, 100.0));

@@ -1,13 +1,12 @@
 package robotai;
-import static gui.ExampleSwingApp.logger;
-import static gui.ExampleSwingApp.state;
+import static main.ExampleSwingApp.logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.RobotAI;
-import main.RobotControl;
-import static robotsgame.AI.Constants.*;
-import main.RobotInfo;
-import utils.Line;
+import dependencies.RobotAI;
+import dependencies.RobotControl;
+import static main.Constants.*;
+import dependencies.RobotInfo;
+import main.Line;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

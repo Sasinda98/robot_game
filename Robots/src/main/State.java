@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package main;
 
+import main.Line;
+import main.Hit;
 import java.awt.List;
 import java.util.Iterator;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
-import main.RobotInfo;
+import dependencies.RobotInfo;
 
 /**
  *
  * @author sasinda
  */
 public class State {
-    
+
     private volatile RobotInfo[] robotsArray;
     private int index = 0;
     private volatile LinkedBlockingQueue<Line> linesQueue = new LinkedBlockingQueue<>(100); 
@@ -24,8 +26,22 @@ public class State {
 
     private volatile SynchronousQueue<Object> guiSync = new SynchronousQueue<>();
     
-    public State(int size){
-        robotsArray = new RobotInfo[size];
+    private State(){
+
+    }
+    
+    private static State instance;
+    
+    public static State getInstance(){
+        if(instance == null){
+            instance = new State();
+        }
+        return instance;
+    }
+    
+    
+    public void setRobotArraySize(int size){
+            robotsArray = new RobotInfo[size];
     }
     
     public void addRobot(RobotInfo robot){

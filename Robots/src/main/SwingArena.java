@@ -1,13 +1,12 @@
-package gui;
+package main;
 
-import static gui.ExampleSwingApp.state;
 import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import main.RobotInfo;
-import utils.Hit;
-import utils.Line;
+import dependencies.RobotInfo;
+import main.Hit;
+import main.Line;
 
 /**
  * A Swing GUI element that displays a grid on which you can draw images, text and lines.
@@ -121,7 +120,7 @@ public class SwingArena extends JPanel
         drawLine(gfx, robotX, robotY, robotX + 1.0, robotY - 2.0); */
 
        Hit hit = null;
-   
+       State state = State.getInstance();
        if(state != null)
        for(RobotInfo robot: state.getRobotArray()){
            

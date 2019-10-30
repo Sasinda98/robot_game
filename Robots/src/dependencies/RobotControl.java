@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package dependencies;
 
 
-import gui.ExampleSwingApp;
-import static gui.ExampleSwingApp.logger;
-import static gui.ExampleSwingApp.state;
+import main.ExampleSwingApp;
+import static main.ExampleSwingApp.logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import robotai.GreyAI;
 
-import utils.Line;
+import main.Line;
+import main.State;
 
 /**
  *
@@ -38,7 +38,7 @@ public class RobotControl {
     }
     
     public RobotInfo[] getRobots(){
-        return state.getRobotArray();
+        return State.getInstance().getRobotArray();
     }
     
     public boolean moveNorth(){
@@ -47,7 +47,7 @@ public class RobotControl {
         
         if(newY >= 0 && !isAlreadyOccupied(robotToControl.getX(), newY) && isAlive){
             robotToControl.setY(newY);
-            state.addSyncPayload();
+            State.getInstance().addSyncPayload();
             //System.out.println("Moving North, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
@@ -61,7 +61,7 @@ public class RobotControl {
         
         if(newY < gridY && !isAlreadyOccupied(robotToControl.getX(), newY) && isAlive){
             robotToControl.setY(newY);
-            state.addSyncPayload();
+            State.getInstance().addSyncPayload();
             //System.out.println("Moving South, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
@@ -75,7 +75,7 @@ public class RobotControl {
         
         if(newX >= 0 && !isAlreadyOccupied(newX, robotToControl.getY()) && isAlive){
             robotToControl.setX(newX);
-            state.addSyncPayload();
+            State.getInstance().addSyncPayload();
             //System.out.println("Moving West, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
@@ -89,7 +89,7 @@ public class RobotControl {
         
         if(newX < gridX && !isAlreadyOccupied(newX, robotToControl.getY()) && isAlive){
             robotToControl.setX(newX);
-            state.addSyncPayload();
+            State.getInstance().addSyncPayload();
             //System.out.println("Moving East, " + robotToControl.getName() + " X = " + robotToControl.getX() + " Y = " + robotToControl.getY());
             return true;
         }else{
@@ -114,11 +114,11 @@ public class RobotControl {
             //FIRE THE LASER!
                 //Code to draw line
             Line l = new Line(robotToControl.getX(), robotToControl.getY(), targetX, targetY);
-            state.addLine(l);
+            State.getInstance().addLine(l);
    
             Thread.sleep(250);  //line delay, show for 250ms
            
-            state.removeLine(l);  
+            State.getInstance().removeLine(l);  
             return true;
         }
         return false;
@@ -137,6 +137,6 @@ public class RobotControl {
     
     public void recordHit(RobotInfo victim){
        // RobotInfo attacker = robotToControl;
-        state.addHit(robotToControl, victim);
+        State.getInstance().addHit(robotToControl, victim);
     }
 }
