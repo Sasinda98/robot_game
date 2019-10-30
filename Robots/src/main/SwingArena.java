@@ -15,9 +15,9 @@ import main.Line;
 public class SwingArena extends JPanel
 {
     // Represents the image to draw. You can modify this to introduce multiple images.
-    private static final String IMAGE_NORMAL = "./assets/1554047213.png";
-    private static final String IMAGE_ATTACKER = "./assets/attacker.png";
-    private static final String IMAGE_VICTIM = "./assets/victim.png";
+    private static final String IMAGE_NORMAL = "./main/assets/1554047213.png";
+    private static final String IMAGE_ATTACKER = "./main/assets/attacker.png";
+    private static final String IMAGE_VICTIM = "./main/assets/victim.png";
     
     private ImageIcon robot_normal_img;
     private ImageIcon robot_attacker_img;
