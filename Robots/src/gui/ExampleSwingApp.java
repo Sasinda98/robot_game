@@ -23,16 +23,11 @@ public class ExampleSwingApp
             SwingArena arena = new SwingArena();
             
             JToolBar toolbar = new JToolBar();
-            JButton btn1 = new JButton("My Button 1");
-            JButton btn2 = new JButton("My Button 2");
+            JButton btn1 = new JButton("Start");
+            JButton btn2 = new JButton("Stop");
             toolbar.add(btn1);
             toolbar.add(btn2);
-            
-            btn1.addActionListener((event) ->
-            {
-                System.out.println("Button 1 pressed");
-            });
-            
+
             logger = new JTextArea();
             JScrollPane loggerArea = new JScrollPane(logger);
             loggerArea.setBorder(BorderFactory.createEtchedBorder());
@@ -61,7 +56,17 @@ public class ExampleSwingApp
             
             splitPane.setDividerLocation(0.75);
             
-            function(arena);
+           // function(arena);
+            
+            btn1.addActionListener((event) ->
+            {
+                logger.append("Start Pressed");
+                
+            });
+            
+            btn2.addActionListener((ev)->{
+                logger.append("Stop Pressed");
+            });
         });
         
     }
@@ -123,6 +128,7 @@ public class ExampleSwingApp
   
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ExampleSwingApp.class.getName()).log(Level.SEVERE, null, ex);
+                    break;
                 }
 
             }

@@ -122,6 +122,7 @@ public class SwingArena extends JPanel
 
        Hit hit = null;
    
+       if(state != null)
        for(RobotInfo robot: state.getRobotArray()){
            
             drawRobot(gfx, robot_normal_img, robot.getName(), robot.getHealth(), robot.getX(), robot.getY());

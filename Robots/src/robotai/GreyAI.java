@@ -104,6 +104,9 @@ public class GreyAI extends Thread implements RobotAI {
                     break;
             }
 
+            if(rc.getRobot().getHealth() <= 0){
+                break;
+            }
 
             try {
                 Thread.sleep(1000); //1sec sleep
