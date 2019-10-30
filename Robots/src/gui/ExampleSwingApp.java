@@ -116,7 +116,7 @@ public class ExampleSwingApp
                     
                     if(state.getRobotArray().length - 1 == deadRobots){
                         System.out.println("Ending, last robot standing........");
-                        logger.append("Ending, Last Robot Standing...");
+                        logger.append("Ending, Last Robot Standing. GAME OVER\n");
                         break;
                     }
               

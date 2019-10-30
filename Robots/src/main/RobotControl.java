@@ -7,6 +7,7 @@ package main;
 
 
 import gui.ExampleSwingApp;
+import static gui.ExampleSwingApp.logger;
 import static gui.ExampleSwingApp.state;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -115,7 +116,7 @@ public class RobotControl {
                 //Code to draw line
             Line l = new Line(robotToControl.getX(), robotToControl.getY(), targetX, targetY);
             state.addLine(l);
-            
+   
             Thread.sleep(250);  //line delay, show for 250ms
            
             state.removeLine(l);  

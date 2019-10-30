@@ -1,4 +1,5 @@
 package robotai;
+import static gui.ExampleSwingApp.logger;
 import static gui.ExampleSwingApp.state;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,16 +59,21 @@ public class GreyAI extends Thread implements RobotAI {
                     }
 
                     if(isFireLegal){    //commit to firing
-                                              
+                        logger.append("Robot: " + rc.getRobot().getName() + " FIRED AT " + temp.getName() + "\n");          
                         boolean isAHit = (temp.getX() - prevX == 0) && (temp.getY() - prevY == 0);
                         
                         if(isAHit){
                             temp.setHealth( ( ( temp.getHealth() - 35.0 ) < 0 ) ? 0 : ( temp.getHealth() - 35 ) ); //Prevent negative values for health.
                             
                             System.out.println("LASER HIT");
+                            logger.append("Robot: " + temp.getName() + " INCURRS DAMAGE." + "\n");   
+                            
+                            if(temp.getHealth() <= 0)
+                                 logger.append("Robot: " + temp.getName() + " DIED." + "\n");  
                                 
                         }else{
                             System.out.println("LASER MISSED");
+                             logger.append("Robot: " + rc.getRobot().getName() + " MISSES THE TARGET. \n");    
                         }
                         
                         break;
