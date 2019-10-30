@@ -9,7 +9,7 @@ import javax.swing.*;
 import dependencies.RobotControl;
 import robotai.GreyAI;
 import dependencies.RobotInfo;
-import main.State;
+import dependencies.State;
 
 public class ExampleSwingApp 
 {
@@ -70,6 +70,7 @@ public class ExampleSwingApp
            
             state = State.getInstance();
             state.setRobotArraySize(5);
+            
             state.addRobot(new RobotInfo("Robot-1", 1, 1, 100.0));
             state.addRobot(new RobotInfo("Robot-2", 3, 3, 100.0));
             state.addRobot(new RobotInfo("Robot-3", 2, 2, 100.0));

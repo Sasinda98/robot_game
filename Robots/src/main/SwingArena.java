@@ -1,5 +1,6 @@
 package main;
 
+import dependencies.State;
 import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

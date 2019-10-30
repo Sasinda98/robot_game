@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package dependencies;
 
 import main.Line;
 import main.Hit;
@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import dependencies.RobotInfo;
+import main.Hit;
+import main.Line;
 
 /**
  *
@@ -45,6 +47,10 @@ public class State {
     }
     
     public void addRobot(RobotInfo robot){
+        if(robotsArray == null){
+            throw new IllegalStateException("Robot array is not initialized, set its value using setRobotArraySize(int size)");
+        }
+        
         if(robotsArray.length > index){
             robotsArray[index] = robot;
             index++;
@@ -52,12 +58,16 @@ public class State {
     }
       
     public RobotInfo getRobot(int index){
-       
+        if(robotsArray == null){
+            throw new IllegalStateException("Robot array is not initialized, set its value using setRobotArraySize(int size)");
+        }
         return robotsArray[index];
     }
     
     public RobotInfo[] getRobotArray(){
-    
+        if(robotsArray == null){
+            throw new IllegalStateException("Robot array is not initialized, set its value using setRobotArraySize(int size)");
+        }
         return this.robotsArray;
     }
     
